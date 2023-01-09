@@ -28,6 +28,7 @@ Application has the following features:
 * Registration
 * Basic authentication
 * Submitting data in form of web forms and file uploads (with general validations)
+* To test file uploads please use ONLY provided templates or generated data in /static/generated_data folder
 * Data output in form of tables and maps
 
 
