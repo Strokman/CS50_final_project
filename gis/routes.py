@@ -117,7 +117,7 @@ def submit():
             db.session.commit()
             flash('Data submitted successfully!', category='success')
         except BaseException:
-            flash('Incorrect data!')
+            flash('Incorrect data!', category='danger')
         finally:
             return redirect(url_for('submit'))
     return render_template('submit.html')
@@ -147,7 +147,7 @@ def conversion():
             db.session.commit()
             flash('Data submitted successfully!', category='success')
         except BaseException:
-            flash('Incorrect data!')
+            flash('Incorrect data!', category='danger')
         finally:
             return redirect(url_for('conversion'))
 
@@ -177,7 +177,7 @@ def conversion_02():
             db.session.add(points)
             db.session.commit()
         except BaseException:
-            flash('Incorrect data!')
+            flash('Incorrect data!', category='danger')
         finally:
             return redirect(url_for('conversion_02'))
 
@@ -246,7 +246,7 @@ def submit_settlements():
             db.session.add(points)
             db.session.commit()
         except BaseException:
-            flash('Incorrect data!')
+            flash('Incorrect data!', category='danger')
         finally:
             return redirect(url_for('submit_settlements'))
 
@@ -274,7 +274,7 @@ def settlements_conversion():
             db.session.add(points)
             db.session.commit()
         except BaseException:
-            flash('Incorrect data!')
+            flash('Incorrect data!', category='danger')
         finally:
             return redirect(url_for('settlements_conversion'))
     return render_template('submit_settlements.html')
@@ -302,7 +302,7 @@ def settlements_conversion_02():
             db.session.add(points)
             db.session.commit()
         except BaseException:
-            flash('Incorrect data!')
+            flash('Incorrect data!', category='danger')
         finally:
             return redirect(url_for('settlements_conversion_02'))
     return render_template('submit_settlements.html')
