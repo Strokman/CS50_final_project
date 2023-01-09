@@ -70,7 +70,7 @@ docker run -d -p 5000:5000 gis-image
 as an argument in run.py file (see below)
 ```
     if __name__ == '__main__':
-        app.run(host='0.0.0.0', port={PORT_NUMBER})
+        app.run(host='0.0.0.0', port=${PORT_NUMBER})
 ```
 
 5. After that you should be able to access the app at localhost:5000 or curl localhost:5000
