@@ -28,13 +28,27 @@ Application has the following features:
 * Registration
 * Basic authentication
 * Submitting data in form of web forms and file uploads (with general validations)
-* To test file uploads please use ONLY provided templates or generated data in /static/generated_data folder
+* To test file uploads please use ONLY provided templates or generated data in /static/generated_data folder.
+* /static/samples folder stores templates for uploading data and favicon for my project
 * Data output in form of tables and maps
 
 
 I used Flask, JS, HTML and CSS to build this project. Database uses simple SQlite local db.
 I also made another ('production') version of the app for my scientific team, which uses PostgresSQL 
-and runs as Docker container
+and runs as Docker container.
+
+models.py has 3 SQLalchemy classes for transmitting data to database.
+
+forms.py stores a registration form using wtform library. I wasn't able to manage all required forms as wtform classes
+because I stack with some issues - csrf token bug with login form, which i cannot solve for now, and my submit forms
+has 3 types of coordinates and I also don't know how to manage that at this timepoint, so i've made it using pure html.
+
+helpers.py stores @login_required function taken from the last problem set and functions for calculating the coordinates.
+
+routes.py is the main heart - it stores all logic of my app.
+
+all needed packages are listed in requirements.txt
+
 
 General layout based on the Bootstrap library
 https://getbootstrap.com/
