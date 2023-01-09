@@ -1,0 +1,29 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Select data
+{% endblock %}
+
+{% block main %}
+
+<div class="container-fluid mb-4 w-50">
+    <h5>Please choose type of data you wish to check</h5>
+</div>
+<div class="container-fluid mb-4 w-50">
+    <form method="post" id="select">
+        <select class="form-select" name="select" aria-label="Default select example" onchange='if(this.value != 0) { this.form.submit(); }'>
+            <option selected>Choose data</option>
+
+              {% for i in options %}
+
+            <option>{{i}}</option>
+
+              {% endfor %}
+
+            <option>all strontium data</option>
+            <option>settlements</option>
+        </select>
+    </form>
+</div>
+
+{% endblock %}

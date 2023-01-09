@@ -1,0 +1,77 @@
+<!--Template responsible for rendering tables-->
+
+{% extends "layout.html" %}
+
+{% block title %}
+
+    Data table
+
+{% endblock %}
+
+{% block main %}
+
+<!--Check if there is no sr column - render settlements table-->
+{% if settlements %}
+
+<table class="table table-dark table-striped">
+    <thead>
+        <tr>
+            <th class="text-start">ID</th>
+            <th class="text-end">Name</th>
+            <th class="text-end">Location</th>
+            <th class="text-end">Lat</th>
+            <th class="text-end">Long</th>
+        </tr>
+    </thead>
+   <tbody>
+
+        {% for i in settlements %}
+
+            <tr>
+                <td class="text-start">{{ i.id }}</td>
+                <td class="text-end">{{ i.name }}</td>
+                <td class="text-end">{{ i.location }}</td>
+                <td class="text-end">{{ i.lat }}</td>
+                <td class="text-end">{{ i.long }}</td>
+            </tr>
+
+        {% endfor %}
+
+    </tbody>
+</table>
+
+{% endif %}
+
+<!--if there is sr column - render strontium table-->
+{% if samples %}
+
+<table class="table table-dark table-striped">
+    <thead>
+        <tr>
+            <th class="text-start">ID</th>
+            <th class="text-end">Name</th>
+            <th class="text-end">Sr ratio</th>
+            <th class="text-end">Sample type</th>
+            <th class="text-end">Sampling point</th>
+        </tr>
+    </thead>
+   <tbody>
+
+        {% for i in samples %}
+
+            <tr>
+                <td class="text-start">{{ i.id }}</td>
+                <td class="text-end">{{ i.name }}</td>
+                <td class="text-end">{{ i.sr }}</td>
+                <td class="text-end">{{ i.sample_type }}</td>
+                <td class="text-end">{{ i.number }}</td>
+            </tr>
+
+        {% endfor %}
+
+    </tbody>
+</table>
+
+{% endif %}
+
+{% endblock %}

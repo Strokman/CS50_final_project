@@ -1,0 +1,264 @@
+<!--Base template which handles the navigation bar, flash messages and basic introduction for / route-->
+<!--This template also handles some additional features for some other templates based on if conditions-->
+<!--Layout is based on Bootstrap library-->
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
+          rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65"
+          crossorigin="anonymous">
+    <link rel="icon" type="image/x-icon" href="/static/gim.png">
+    <title>SHM Archaeology GIS:{% block title %}{% endblock %}</title>
+
+    {% if request.endpoint == 'render_map' %}
+
+<!--    Including necessary attributes for rendering the map-->
+    <title>Map</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css"
+     integrity="sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI="
+     crossorigin=""/>
+     <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"
+     integrity="sha256-WBkoXOwTeyKclOHuWtc+i2uENFpDZ9YPdf5Hf+D7ewM="
+     crossorigin=""></script>
+
+    {% endif %}
+
+  </head>
+  <body>
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+              integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
+              crossorigin="anonymous"></script>
+      <nav class="navbar navbar-expand-lg bg-light">
+        <div class="container-fluid">
+          <nav class="navbar bg-light">
+            <div class="container-fluid">
+              <a class="navbar-brand">
+                <img src="/static/gim.png" alt="Logo" width="85" height="34" class="d-inline-block align-text-top">
+              </a>
+            </div>
+          </nav>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+      {% if session["user_id"] %}
+
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="{{ url_for('home') }}">Home</a>
+              </li>
+              <li class="nav-item dropdown">
+                <a class="nav-link active dropdown-toggle" href="#"
+                   role="button" data-bs-toggle="dropdown" aria-expanded="false">Strontium</a>
+                <ul class="dropdown-menu">
+                  <li><a class="dropdown-item" href="{{ url_for('submit') }}">Submit data</a></li>
+                  <li><a class="dropdown-item" href="{{ url_for('upload_file') }}">Import data from file</a></li>
+                </ul>
+              </li>
+              <li class="nav-item dropdown">
+                <a class="nav-link active dropdown-toggle" href="#" role="button"
+                   data-bs-toggle="dropdown" aria-expanded="false">Settlements</a>
+                <ul class="dropdown-menu">
+                  <li><a class="dropdown-item" href="{{ url_for('submit_settlements') }}">Submit data</a></li>
+                  <li><a class="dropdown-item" href="{{ url_for('settlements_file') }}">Import data from file</a></li>
+                </ul>
+              </li>
+              <li class="nav-item dropdown">
+                <a class="nav-link active dropdown-toggle" href="#"
+                   role="button" data-bs-toggle="dropdown" aria-expanded="false">Data output</a>
+                <ul class="dropdown-menu">
+                  <li><a class="dropdown-item" href="{{ url_for('table') }}">Table</a></li>
+                  <li><a class="dropdown-item" href="{{ url_for('render_map') }}">Map</a></li>
+                </ul>
+              </li>
+            </ul>
+            <ul class="navbar-nav">
+              <li class="nav-item">
+                <a class="nav-link" href="{{ url_for('logout') }}">Logout</a>
+              </li>
+            </ul>
+
+      {% else %}
+
+            <ul class="navbar-nav ms-auto">
+              <li class="nav-item">
+                <a class="nav-link" href="{{ url_for('login') }}">Login</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{{ url_for('register') }}">Register</a>
+              </li>
+            </ul>
+
+      {% endif %}
+
+          </div>
+        </div>
+      </nav>
+  </body>
+
+<!--  flash messages block-->
+
+  {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+      {% for category, message in messages %}
+  <div class="alert alert-{{ category }} alert-dismissible fade show mx-auto w-50" role="alert">
+    <strong>{{ message }}</strong>
+    <button type="button" class="close" data-bs-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+
+      {% endfor %}
+
+    {% endif %}
+
+  {% endwith %}
+
+  {% if request.endpoint == 'submit'%}
+  <div class="input_pages">
+    <h5>Sample input form with coordinates conversion</h5>
+  </div>
+  <nav aria-label="..." class="pagination">
+    <ul class="pagination pagination-sm">
+      <li class="page-item active" aria-current="page"><a class="page-link" href="{{ url_for('submit') }}">DD.DDDD input</a></li>
+      <li class="page-item"><a class="page-link" href="{{ url_for('conversion') }}">DD.MM.SS to DD.DDDD</a></li>
+      <li class="page-item"><a class="page-link" href="{{ url_for('conversion_02') }}">DD.MM.MMMM to DD.DDDD</a></li>
+    </ul>
+  </nav>
+
+  {% endif %}
+
+  {% if request.endpoint == 'conversion' %}
+
+  <div class="input_pages">
+    <h5>Sample input form with coordinates conversion</h5>
+  </div>
+  <nav aria-label="..." class="pagination">
+    <ul class="pagination pagination-sm">
+      <li class="page-item" aria-current="page"><a class="page-link" href="{{ url_for('submit') }}">DD.DDDD input</a></li>
+      <li class="page-item active"><a class="page-link" href="{{ url_for('conversion') }}">DD.MM.SS to DD.DDDD</a></li>
+      <li class="page-item"><a class="page-link" href="{{ url_for('conversion_02') }}">DD.MM.MMMM to DD.DDDD</a></li>
+    </ul>
+  </nav>
+
+  {% endif %}
+
+    {% if request.endpoint == 'conversion_02' %}
+
+  <div class="input_pages">
+    <h5>Sample input form with coordinates conversion</h5>
+  </div>
+  <nav aria-label="..." class="pagination">
+    <ul class="pagination pagination-sm">
+      <li class="page-item" aria-current="page"><a class="page-link" href="{{ url_for('submit') }}">DD.DDDD input</a></li>
+      <li class="page-item"><a class="page-link" href="{{ url_for('conversion') }}">DD.MM.SS to DD.DDDD</a></li>
+      <li class="page-item active"><a class="page-link" href="{{ url_for('conversion_02') }}">DD.MM.MMMM to DD.DDDD</a></li>
+    </ul>
+  </nav>
+
+  {% endif %}
+
+  {% if request.endpoint == 'submit_settlements'%}
+
+  <div class="input_pages">
+    <h5>Settlements input form with coordinates conversion</h5>
+  </div>
+    <nav aria-label="..." class="pagination">
+      <ul class="pagination pagination-sm">
+        <li class="page-item active" aria-current="page"><a class="page-link" href="{{ url_for('submit_settlements') }}">DD.DDDD input</a></li>
+        <li class="page-item"><a class="page-link" href="{{ url_for('settlements_conversion') }}">DD.MM.SS to DD.DDDD</a></li>
+        <li class="page-item"><a class="page-link" href="{{ url_for('settlements_conversion_02') }}">DD.MM.MMMM to DD.DDDD</a></li>
+      </ul>
+    </nav>
+
+  {% endif %}
+
+  {% if request.endpoint == 'settlements_conversion' %}
+
+  <div class="input_pages">
+    <h5>Settlements input form with coordinates conversion</h5>
+  </div>
+    <nav aria-label="..." class="pagination">
+      <ul class="pagination pagination-sm">
+        <li class="page-item" aria-current="page"><a class="page-link" href="{{ url_for('submit_settlements') }}">DD.DDDD input</a></li>
+      <li class="page-item active"><a class="page-link" href="{{ url_for('settlements_conversion') }}">DD.MM.SS to DD.DDDD</a></li>
+      <li class="page-item"><a class="page-link" href="{{ url_for('settlements_conversion_02') }}">DD.MM.MMMM to DD.DDDD</a></li>
+      </ul>
+    </nav>
+
+  {% endif %}
+
+    {% if request.endpoint == 'settlements_conversion_02' %}
+  <div class="input_pages">
+    <h5>Settlements input form with coordinates conversion</h5>
+  </div>
+  <nav aria-label="..." class="pagination">
+    <ul class="pagination pagination-sm">
+      <li class="page-item" aria-current="page"><a class="page-link" href="{{ url_for('submit_settlements') }}">DD.DDDD input</a></li>
+      <li class="page-item"><a class="page-link" href="{{ url_for('settlements_conversion') }}">DD.MM.SS to DD.DDDD</a></li>
+      <li class="page-item active"><a class="page-link" href="{{ url_for('settlements_conversion_02') }}">DD.MM.MMMM to DD.DDDD</a></li>
+    </ul>
+  </nav>
+
+  {% endif %}
+
+  <main class="container-fluid py-5 text-center">
+
+    {% block main %}
+
+    {% if request.endpoint == 'home' %}
+
+    <div class="container-fluid mb-5">
+      <h3>
+        Welcome to the Archaeological database and Geographic information system <br>
+      </h3>
+    </div>
+    <div class="container-fluid mb-5">
+      <h5>
+        The database is designed to store data about settlements,<br>
+        discovered during the archaeological surveys and
+        excavations as well as data about strontium isotopes ratio,<br>
+        obtained during the scientific measurements of
+        archaeological artifacts.<br>
+        Data contains geographical coordinates and can be visualized on the map.
+      </h5>
+    </div>
+
+    {% endif %}
+
+    {% endblock %}
+
+  </main>
+
+<!--  I worked in the Pycharm CE which not supports css files, some custom styles are here-->
+  <style>
+
+  body {
+background-color: #3B3B3B;
+color: #FDFBFB;
+}
+
+  .pagination {
+display: flex;
+justify-content: center;
+margin-top: 10px;
+}
+
+  .input_pages {
+display: flex;
+justify-content: center;
+margin-top: 20px;
+}
+
+  .alert {
+display: flex;
+justify-content: center;
+margin-top: 10px;
+}
+
+  #map {
+height: 600px;
+}
+  </style>
+</html>

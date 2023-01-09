@@ -1,0 +1,28 @@
+{% extends "layout.html" %}
+
+{% block title %}
+
+    Login
+
+{% endblock %}
+
+{% block main %}
+
+<div class="container-fluid mb-4">
+    <h5>Please login</h5>
+</div>
+<form action="/login" method="POST">
+    <div class="mb-2">
+        <input type="text" class="form-control mx-auto w-25" id="username" name="username" placeholder="Username">
+    </div>
+    <div class="mb-2">
+        <input type="password" class="form-control mx-auto w-25" id="password" name="password" placeholder="Password">
+    </div>
+    <button type="submit" class="btn btn-primary mb-3">Submit</button>
+    <div class="checkbox mb-3">
+        <h6>Do not have an account?</h6>
+        <a class="btn btn-sm btn-secondary" href="{{ url_for('register') }}">Register here</a>
+    </div>
+</form>
+
+{% endblock %}

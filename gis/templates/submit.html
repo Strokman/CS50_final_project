@@ -1,0 +1,95 @@
+<!--This template handles all possible data uploads for strontium part-->
+
+{% extends "layout.html" %}
+
+{% block title %}
+
+    Submit data
+
+{% endblock %}
+
+{% block main %}
+
+<!--Define action tags for every possible route-->
+
+{% if request.path == '/submit' %}
+<form action="/submit" method="POST">
+
+  {% endif %}
+
+  {% if request.path == '/conversion' %}
+  <form action="/conversion" method="POST">
+
+    {% endif %}
+
+      {% if request.path == '/conversion_02' %}
+
+  <form action="/conversion_02" method="POST">
+
+    {% endif %}
+
+    <div class="mb-2">
+      <input type="text" class="form-control mx-auto w-25" id="name" name="name" placeholder="Name of the site">
+      <label>Name of the site</label>
+    </div>
+
+    {% if request.path == '/submit' %}
+
+    <div class="mb-2">
+      <input type="text" class="form-control mx-auto w-25" id="long" name="long" placeholder="Longitude - e.g. 43.123456">
+      <label>Longitude</label>
+    </div>
+    <div class="mb-2">
+      <input type="text" class="form-control mx-auto w-25" id="lat" name="lat" placeholder="Latitude - e.g. 43.123456">
+      <label>Latitude</label>
+    </div>
+
+    {% endif %}
+
+    {% if request.path == '/conversion' %}
+      <div class="input-group mb-2 mx-auto w-50">
+        <span class="input-group-text">Longitude</span>
+        <input type="text" aria-label="dd" name="long-dd" id="long-dd" class="form-control" placeholder="dd">
+        <input type="text" aria-label="mm" name="long-mm" id="long-mm" class="form-control" placeholder="mm">
+        <input type="text" aria-label="ss" name="long-ss" id="long-ss" class="form-control" placeholder="ss">
+      </div>
+    <div class="input-group mb-2 mx-auto w-50">
+      <span class="input-group-text">Latitude</span>
+      <input type="text" aria-label="dd" name="lat-dd" id="lat-dd" class="form-control" placeholder="dd">
+      <input type="text" aria-label="mm" name="lat-mm" id="lat-mm" class="form-control" placeholder="mm">
+      <input type="text" aria-label="ss" name='lat-ss' id="lat-ss" class="form-control" placeholder="ss">
+    </div>
+
+    {% endif %}
+
+    {% if request.path == '/conversion_02' %}
+
+    <div class="input-group mb-2 mx-auto w-50">
+      <span class="input-group-text">Longitude</span>
+      <input type="text" aria-label="dd" name="long-dd" id="long-dd" class="form-control" placeholder="dd">
+      <input type="text" aria-label="mm" name="long-mm.mmmm" id="long-mm.mmmm" class="form-control" placeholder="mm.mmmm">
+    </div>
+    <div class="input-group mb-2 mx-auto w-50">
+      <span class="input-group-text">Latitude</span>
+      <input type="text" aria-label="dd" name="lat-dd" id="lat-dd" class="form-control" placeholder="dd">
+      <input type="text" aria-label="mm" name="lat-mm.mmmm" id="lat-mm.mmmm" class="form-control" placeholder="mm.mmmm">
+    </div>
+
+    {% endif %}
+
+    <div class="mb-2">
+      <input type="text" class="form-control mx-auto w-25" id="sr" name="sr" placeholder="87Sr/86Sr ratio - e.g. 0.7089">
+      <label>87Sr/86Sr ratio</label>
+    </div>
+    <div class="mb-2">
+      <input type="text" class="form-control mx-auto w-25" id="sample" name="sample" placeholder="Sample type">
+      <label>Sample type</label>
+    </div>
+    <div class="mb-2">
+      <input type="text" class="form-control mx-auto w-25" id="sample_point" name="sample_point" placeholder="Sampling point number">
+      <label>Sampling point number</label>
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </form>
+
+{% endblock %}

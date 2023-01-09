@@ -1,0 +1,47 @@
+<!--File handles all file uploads via if block based on the path of request-->
+
+{% extends "layout.html" %}
+
+{% block title %}
+
+    Upload data from file
+
+{% endblock %}
+
+{% block main %}
+<div class="container-fluid mb-4">
+    <h5>Upload data from file</h5>
+</div>
+
+    {% if request.path == '/file' %}
+
+<h6 class="mb-4">Please use this <a class="link-primary" href="/static/samples/sample_input.csv" download>file</a> as a template!</h6>
+<h6 class="mb-4">Longitude and latitude should be in decimal degrees!
+    <br>If you have any data in DD.MM.MMMM or DD.MM.SS format - please use
+    <a class="link-primary" href="{{ url_for('submit') }}">submit form</a>
+    <br>Longitude, latitude and Sr fields should be in decimal (e.g. 43.12345, 0.7089) format.<br> Dot . as delimiter
+        is mandatory! Only .csv files are allowed!
+</h6>
+
+    {% endif %}
+
+    {% if request.path == '/settlements_file' %}
+
+<h6 class="mb-4">Please use this <a class="link-primary" href="/static/samples/settlements_input.csv" download>file</a> as a template!</h6>
+<h6 class="mb-4">Longitude and latitude should be in decimal degrees!
+    <br>If you have any data in DD.MM.MMMM or DD.MM.SS format - please use
+    <a class="link-primary" href="{{ url_for('submit_settlements') }}">submit form</a>
+    <br>Longitude and latitude fields should be in decimal (e.g. 43.12345) format.<br> Dot . as delimiter
+        is mandatory! Only .csv files are allowed!
+</h6>
+
+    {% endif %}
+
+<form method=post enctype=multipart/form-data>
+    <div class="container-fluid input-group mb-3 w-50">
+        <input type=file name=file class="form-control">
+        <input class="btn btn-outline btn-success" type=submit value=Upload>
+    </div>
+</form>
+
+{% endblock %}

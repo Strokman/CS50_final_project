@@ -1,0 +1,34 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Registration form
+{% endblock %}
+
+{% block main %}
+<form method="POST" class="form-register">
+    {{ form.hidden_tag() }}
+    <div class="container-fluid mb-4">
+        <h5>Registration form</h5>
+    </div>
+    {{ form.username.label(class='mb-2') }}
+    {{ form.username(class='form-control mb-2 mx-auto w-25') }}
+    {{ form.first_name.label(class='mb-2') }}
+    {{ form.first_name(class='form-control mb-2 mx-auto w-25') }}
+    {{ form.last_name.label(class='mb-2') }}
+    {{ form.last_name(class='form-control mb-2 mx-auto w-25') }}
+    {{ form.email.label(class='mb-2') }}
+    {{ form.email(class='form-control mb-2 mx-auto w-25') }}
+    {{ form.affiliation.label(class='mb-2') }}
+    {{ form.affiliation(class='form-control mb-2 mx-auto w-25') }}
+    {{ form.passwd.label(class='mb-2') }}
+    {{ form.passwd(class='form-control mb-2 mx-auto w-25') }}
+    {{ form.confirm_passwd.label(class='mb-2') }}
+    {{ form.confirm_passwd(class='form-control mb-2 mx-auto w-25') }}
+    {{ form.submit(class='btn btn-primary mb-3') }}
+    <div class="checkbox mb-3">
+        <h6>Already registered?</h6>
+        <a class="btn btn-sm btn-secondary" href="{{ url_for('login') }}">Login here</a>
+    </div>
+</form>
+
+{% endblock %}
