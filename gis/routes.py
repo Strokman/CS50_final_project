@@ -176,6 +176,7 @@ def conversion_02():
             points = Samples(name, long, lat, sr, sample_type, number, session['user_id'])
             db.session.add(points)
             db.session.commit()
+            flash('Data submitted successfully!', category='success')
         except BaseException:
             flash('Incorrect data!', category='danger')
         finally:
@@ -245,6 +246,7 @@ def submit_settlements():
             points = Settlements(name, location, long, lat, session['user_id'])
             db.session.add(points)
             db.session.commit()
+            flash('Data submitted successfully!', category='success')
         except BaseException:
             flash('Incorrect data!', category='danger')
         finally:
@@ -273,6 +275,7 @@ def settlements_conversion():
             points = Settlements(name, location, long, lat, session['user_id'])
             db.session.add(points)
             db.session.commit()
+            flash('Data submitted successfully!', category='success')
         except BaseException:
             flash('Incorrect data!', category='danger')
         finally:
@@ -301,6 +304,7 @@ def settlements_conversion_02():
             points = Settlements(name, location, long, lat, session['user_id'])
             db.session.add(points)
             db.session.commit()
+            flash('Data submitted successfully!', category='success')
         except BaseException:
             flash('Incorrect data!', category='danger')
         finally:
